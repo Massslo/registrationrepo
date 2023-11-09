@@ -7,6 +7,10 @@
 <!--                <li v-for="error in errors" :key="error">{{ error }}</li>-->
 <!--            </ul>-->
 <!--            </p>-->
+            <p class="pagename">
+              Регистрация
+            </p>
+
 
             <p>
                 <label for="email">Почта *</label>
@@ -16,21 +20,21 @@
 
             <p class="password-input relative-position">
                 <label for="password">Пароль *</label>
-                <input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Пароль" />
+                <input id="password" v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Пароль" />
                 <span class="password-icon" @click="togglePasswordVisibility">&#x1F441;</span>
             <p  class="error-message"  v-if="passwordError">{{ passwordError }}</p>
             </p>
 
             <p class="password-input relative-position">
                 <label for="ConfirmPassword">Повтор пароля *</label>
-                <input v-model="confirmPassword" :type="showConfirmPassword ? 'text' : 'password'" placeholder="Повтор пароля" />
+                <input id="cpassword" v-model="confirmPassword" :type="showConfirmPassword ? 'text' : 'password'" placeholder="Повтор пароля" />
                 <span class="password-icon" @click="toggleConfirmPasswordVisibility">&#x1F441;</span>
                             <p class="error-message"  v-if="confirmPasswordError">{{ confirmPasswordError }}</p>
             </p>
 
             <p>
                 <label for="phone">Телефон *</label>
-                <input  type="text" name="phone" id="phone" v-model="phone" placeholder="Введите номер телефона" />
+                <input type="text" name="phone" id="phone" v-model="phone" placeholder="Введите номер телефона" />
                             <p  class="error-message"  v-if="phoneError">{{ phoneError }}</p>
             </p>
 
@@ -63,11 +67,11 @@
             <p>
                 <label for="movie">Типы услуг</label>
                 <select name="movie" id="service" v-model="movie">
-                    <option selected>Ремонт квартир</option>
-                    <option>Ремонт офисов</option>
-                    <option>Дизайн интерьера</option>
-                    <option>Реставрация помещений</option>
-                    <option>Отделка помещений</option>
+                    <option selected value="1">Ремонт квартир</option>
+                    <option value="2">Ремонт офисов</option>
+                    <option value="3">Дизайн интерьера</option>
+                    <option value="4">Реставрация помещений</option>
+                    <option value="5">Отделка помещений</option>
                 </select>
             </p>
 
@@ -135,15 +139,18 @@
             <div class="checkbox-row">
                 <div class="checkbox-wrapper">
                     <input type="checkbox" id="agreement" v-model="agreement" />
-                    <label for="agreement">Я прочитал и согласен с условиями использования сайта, включая политику конфиденциальности и правила обработки персональных данных</label>
+                    <label for="agreement" class="agree">Я прочитал и согласен с условиями использования сайта, включая политику конфиденциальности и правила обработки персональных данных</label>
                 </div>
             </div>
 
             <p>
                 <button type="submit" :disabled="isFormValid">Зарегистрироваться</button>
             </p>
-            <router-link to="/Login">Уже есть аккаунт? Войти</router-link>
-
+          <div class="link">
+            <p>Уже есть аккаунт?
+            <router-link to="/Login">Войти</router-link>
+            </p>
+          </div>
 <!--            <h3>Данные в хранилище:</h3>-->
 <!--            <span>Фамилия: {{ register.surname }}</span><br>-->
 <!--            <span>Имя: {{ register.firstName }}</span><br>-->
@@ -248,10 +255,13 @@ export default {
 
             if (!email.value) {
                 emailError.value = 'Введите вашу электронную почту.';
+              document.getElementById("email").style.borderColor = "red";
             } else if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                 emailError.value = 'Введите корректный адрес электронной почты.';
+              document.getElementById("email").style.borderColor = "red";
             } else {
                 emailError.value = ''; // Очистка сообщения об ошибке, если валидация успешна
+              document.getElementById("email").style.borderColor = "#8DD3BB";
             }
         };
 
@@ -268,20 +278,28 @@ export default {
 
             if (!password.value) {
                 passwordError.value = 'Введите пароль.';
+              document.getElementById("password").style.borderColor = "red";
             } else if (password.value.length < 8) {
                 passwordError.value = 'Пароль должен содержать не менее 8 символов.';
+              document.getElementById("password").style.borderColor = "red";
             } else if (!/[A-Z]/.test(password.value) && !/[А-Я]/.test(password.value)) {
+              document.getElementById("password").style.borderColor = "red";
                 passwordError.value = 'Пароль должен содержать хотя бы одну заглавную букву.';
             } else if (!/[a-z]/.test(password.value) && !/[а-я]/.test(password.value)) {
+              document.getElementById("password").style.borderColor = "red";
                 passwordError.value = 'Пароль должен содержать хотя бы одну строчную букву.';
             } else if (!/\d/.test(password.value)) {
+              document.getElementById("password").style.borderColor = "red";
                 passwordError.value = 'Пароль должен содержать хотя бы одну цифру.';
             } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password.value)) {
+              document.getElementById("password").style.borderColor = "red";
                 passwordError.value = 'Пароль должен содержать хотя бы один специальный символ(!@#$%^&*(),.?":{}|<>).';
             } else if (confirmPassword.value !== '' && confirmPassword.value !== password.value) {
-                passwordError.value = 'Пароли не совпадают.';
+              document.getElementById("password").style.borderColor = "red";
+              passwordError.value = 'Пароли не совпадают.';
             } else {
                 passwordError.value = ''; // Очистка сообщения об ошибке, если валидация успешна
+              document.getElementById("password").style.borderColor = "#8DD3BB";
             }
         };
 
@@ -293,12 +311,16 @@ export default {
             errors.value = []; // Сброс ошибок перед проверкой
 
             if (!confirmPassword.value) {
+              document.getElementById("cpassword").style.borderColor = "red";
                 confirmPasswordError.value = 'Введите повторный пароль.';
             } else if (confirmPassword.value !== password.value) {
+              document.getElementById("cpassword").style.borderColor = "red";
                 confirmPasswordError.value = 'Пароли не совпадают.';
             } else if (!password.value) {
+              document.getElementById("cpassword").style.borderColor = "red";
                 confirmPasswordError.value = 'Введите пароль.';
             } else {
+              document.getElementById("cpassword").style.borderColor = "#8DD3BB";
                 confirmPasswordError.value = ''; // Очистка всех сообщений об ошибке, если валидация успешна
             }
         };
@@ -314,12 +336,15 @@ export default {
             errors.value = []; // Сброс ошибок перед проверкой
 
             if (!phone.value) {
+              document.getElementById("phone").style.borderColor = "red";
                 phoneError.value = 'Введите ваш номер телефона.';
             } else {
                 const phoneRegex = /^\+7\d{10}$/;
                 if (!phoneRegex.test(phone.value)) {
+                  document.getElementById("phone").style.borderColor = "red";
                     phoneError.value = 'Введите корректный номер телефона в формате +7 (999) 999-9999.';
                 } else {
+                  document.getElementById("phone").style.borderColor = "#8DD3BB";
                     phoneError.value = ''; // Очистка сообщения об ошибке, если валидация успешна
                 }
             }
@@ -335,12 +360,16 @@ export default {
             errors.value = []; // Сброс ошибок перед проверкой
 
             if (!surname.value) {
+              document.getElementById("surname").style.borderColor = "red";
                 surnameError.value = 'Введите вашу фамилию.';
             } else if (surname.value.length < 2 || surname.value.length > 50) {
+              document.getElementById("surname").style.borderColor = "red";
                 surnameError.value = 'Минимум 2 символа и максимум 50 символов.';
             } else if (/\d/.test(surname.value)) {
+              document.getElementById("surname").style.borderColor = "red";
                 surnameError.value = 'Фамилия не должна содержать цифры.';
             } else {
+              document.getElementById("surname").style.borderColor = "#8DD3BB";
                 surnameError.value = ''; // Очистка сообщения об ошибке, если валидация успешна
             }
         };
@@ -356,12 +385,16 @@ export default {
             errors.value = []; // Сброс ошибок перед проверкой
 
             if (!firstName.value) {
+              document.getElementById("firstName").style.borderColor = "red";
                 firstNameError.value = 'Введите ваше имя.';
             } else if (firstName.value.length < 2 || firstName.value.length > 50) {
+              document.getElementById("firstName").style.borderColor = "red";
                 firstNameError.value = 'Минимум 2 символа и максимум 50 символов.';
             } else if (/\d/.test(firstName.value)) {
+              document.getElementById("firstName").style.borderColor = "red";
                 firstNameError.value = 'Имя не должно содержать цифры.';
             } else {
+              document.getElementById("firstName").style.borderColor = "#8DD3BB";
                 firstNameError.value = ''; // Очистка сообщения об ошибке, если валидация успешна
             }
         };
@@ -377,12 +410,16 @@ export default {
             errors.value = []; // Сброс ошибок перед проверкой
 
             if (!patronymic.value) {
+              document.getElementById("patronymic").style.borderColor = "red";
                 patronymicError.value = 'Введите ваше отчество.';
             } else if (patronymic.value.length < 2 || patronymic.value.length > 50) {
+              document.getElementById("patronymic").style.borderColor = "red";
                 patronymicError.value = 'Минимум 2 символа и максимум 50 символов.';
             } else if (/\d/.test(patronymic.value)) {
+              document.getElementById("patronymic").style.borderColor = "red";
                 patronymicError.value = 'Отчество не должно содержать цифры.';
             } else {
+              document.getElementById("patronymic").style.borderColor = "#8DD3BB";
                 patronymicError.value = ''; // Очистка сообщения об ошибке, если валидация успешна
             }
         };
@@ -576,6 +613,27 @@ export default {
 <style scoped>
 /* Стили для формы */
 
+.pagename{
+  font-size: x-large;
+  font-weight: bolder;
+  text-align: center;
+  padding: 30px;
+}
+
+.link{
+  text-align: center;
+}
+
+a {
+  font-weight: 500;
+  color: #9eada2;
+  text-decoration: inherit;
+  transition: 0.3s;
+}
+a:hover {
+  color: #292f2e;
+  transition: 0.3s;
+}
 
 form {
     max-width: 400px;
@@ -586,10 +644,15 @@ form {
 p {
     margin-bottom: 15px;
     font-family: 'Arial';
+
 }
 
 option{
+  border: 2px solid #D1D1D1;
+  width: 430px;
+  height: 449.81px;
 
+  transition: 0.2s ease-in-out;
 }
 
 label {
@@ -650,13 +713,22 @@ input[type="radio"]{
   overflow: hidden;
 }
 .checkbox-wrapper {
-    display: flex;
+  flex: 0 0 50%;
     align-items: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .checkbox-wrapper input {
-    margin-right: 20px; /* Расстояние между чекбоксом и текстом */
+   margin-top: 0px; /* Расстояние между чекбоксом и текстом */
+
 }
+
+.agree{
+  padding-left: 50px;
+  text-align: left;
+}
+
 
 .error-message {
     color: red; /* Устанавливаем красный цвет для текста ошибки */
@@ -717,6 +789,7 @@ button[type="submit"]{
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0em;
+  transition: background 0.3s ease-in-out;
 }
 
 button[type="submit"]:focus{
@@ -733,10 +806,35 @@ button[type="submit"]:focus{
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0em;
+  transition: background 0.3s ease-in-out;
 }
 
 input[type="text"]{
-  border: 1px solid #D1D1D1;
+  border: 2px solid #D1D1D1;
+  width: 430px;
+  height: 49.81px;
+  border-radius: 9.96px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding-left: 20px;
+  transition: 0.2s ease-in-out;
+}
+
+
+
+
+input[type="text"]:focus{
+  outline: 0;
+  border: 2px solid #8DD3BB;
+  transition: 0.2s ease-in-out;
+}
+
+
+input[type="password"]{
+  border: 2px solid #D1D1D1;
   width: 430px;
   height: 49.81px;
   border-radius: 9.96px;
@@ -748,18 +846,13 @@ input[type="text"]{
   padding-left: 20px;
 }
 
-input[type="password"]{
-  border: 1px solid #D1D1D1;
-  width: 430px;
-  height: 49.81px;
-  border-radius: 9.96px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19px;
-  letter-spacing: 0em;
-  text-align: left;
-  padding-left: 20px;
+input[type="password"]:focus{
+  outline: 0;
+  border: 2px solid #8DD3BB;
+  transition: 0.2s ease-in-out;
 }
+
+
 
 #service{
   border: 1px solid #D1D1D1;
@@ -812,7 +905,7 @@ input[type="radio"]{
   transition: background-color 0.1s ease-in-out;
 }
 input[type="radio"]:checked::before {
-  content: '\2714';
+  content: "\25CF";
   display: block;
   text-align: center;
   font-size: 16px;
@@ -820,10 +913,12 @@ input[type="radio"]:checked::before {
   color: white;
 }
 
+
 input[type="radio"]:checked {
   background-color: #8DD3BB;
   border: 0px;
 }
+
 
 </style>
 
