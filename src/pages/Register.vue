@@ -1,4 +1,5 @@
 <template>
+
     <div>
         <form @submit.prevent="checkForm">
 <!--            <p v-if="errors.length">-->
@@ -11,30 +12,35 @@
               Регистрация
             </p>
 
-
+          <div>
             <p>
                 <label for="email">Почта *</label>
-                <input  @input="validateEmail"  type="text" name="email" id="email"  v-model="email" placeholder="Введите почту" />
-            <p class="error-message" v-if="emailError">{{ emailError }}</p>
-            </p>
 
+                <input  @input="validateEmail"  type="text" name="email" id="email"  v-model="email" placeholder="Введите почту" />
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          <p class="error-message" v-if="emailError">{{ emailError }}</p>
+            </p>
+    </div>
             <p class="password-input relative-position">
                 <label for="password">Пароль *</label>
                 <input id="password" v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Пароль" />
-                <span class="password-icon" @click="togglePasswordVisibility">&#x1F441;</span>
+              <i class="fa fa-lock" aria-hidden="true"></i>
+              <i class="fa fa-eye"  @click="togglePasswordVisibility"></i>
             <p  class="error-message"  v-if="passwordError">{{ passwordError }}</p>
             </p>
 
             <p class="password-input relative-position">
                 <label for="ConfirmPassword">Повтор пароля *</label>
                 <input id="cpassword" v-model="confirmPassword" :type="showConfirmPassword ? 'text' : 'password'" placeholder="Повтор пароля" />
-                <span class="password-icon" @click="toggleConfirmPasswordVisibility">&#x1F441;</span>
-                            <p class="error-message"  v-if="confirmPasswordError">{{ confirmPasswordError }}</p>
+              <i class="fa fa-lock" aria-hidden="true"></i>
+              <i class="fa fa-eye" @click="toggleConfirmPasswordVisibility"></i>
+                            <p class="error-message"  v-if="confirmPasswordError" >{{ confirmPasswordError }}</p>
             </p>
 
             <p>
                 <label for="phone">Телефон *</label>
                 <input type="text" name="phone" id="phone" v-model="phone" placeholder="Введите номер телефона" />
+              <i class="fa fa-phone" aria-hidden="true"></i>
                             <p  class="error-message"  v-if="phoneError">{{ phoneError }}</p>
             </p>
 
@@ -78,7 +84,8 @@
             <p>
                 <label for="wishes">Ваши пожелания</label>
                 <input type="text" name="wishes" id="wishes" v-model="wishes" placeholder="Введите ваши пожелания" />
-                <span class="tooltip-icon" @mouseover="handleTooltipShow" @mouseout="handleTooltipHide">⚠️</span>
+           
+                <i class="fa fa-info-circle" @mouseover="handleTooltipShow" @mouseout="handleTooltipHide"></i>
                 <span class="tooltip" v-show="showTooltip">Расскажите, какой ремонт вы планируете</span>
             </p>
 
@@ -641,6 +648,12 @@ form {
     padding: 20px;
 }
 
+select:focus{
+  outline: 0;
+  border: 2px solid #8DD3BB;
+  transition: 0.2s ease-in-out;
+}
+
 p {
     margin-bottom: 15px;
     font-family: 'Arial';
@@ -792,7 +805,7 @@ button[type="submit"]{
   transition: background 0.3s ease-in-out;
 }
 
-button[type="submit"]:focus{
+button[type="submit"]:hover:enabled{
   width: 429px;
   height: 48px;
   padding: 8px;
@@ -823,7 +836,37 @@ input[type="text"]{
   transition: 0.2s ease-in-out;
 }
 
+#email{
+  padding-left: 40px;
+}
 
+#password{
+  padding-left: 40px;
+}
+
+#cpassword{
+  padding-left: 40px;
+}
+
+#phone{
+  padding-left: 40px;
+}
+
+input[name="firstName"]{
+  margin-bottom: 20px;
+}
+
+input[name="surname"]{
+  margin-bottom: 20px;
+}
+
+input[name="patronymic"]{
+  margin-bottom: 20px;
+}
+
+select{
+  margin-bottom: 20px;
+}
 
 
 input[type="text"]:focus{
@@ -843,7 +886,7 @@ input[type="password"]{
   line-height: 19px;
   letter-spacing: 0em;
   text-align: left;
-  padding-left: 20px;
+  padding-left: 40px;
 }
 
 input[type="password"]:focus{
@@ -919,6 +962,23 @@ input[type="radio"]:checked {
   border: 0px;
 }
 
+i {
+  position: relative;
+  top: -35px;
+  left: 15px;
+}
+
+.fa-eye{
+  position: relative;
+  top: -35px;
+  left: 385px;
+}
+
+.fa-info-circle {
+  position: relative;
+  top: -35px;
+  left: 395px;
+}
 
 </style>
 
