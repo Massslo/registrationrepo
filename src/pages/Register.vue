@@ -84,9 +84,10 @@
             <p>
                 <label for="wishes">Ваши пожелания</label>
                 <input type="text" name="wishes" id="wishes" v-model="wishes" placeholder="Введите ваши пожелания" />
-           
+                <div class="tooltip">
                 <i class="fa fa-info-circle" @mouseover="handleTooltipShow" @mouseout="handleTooltipHide"></i>
-                <span class="tooltip" v-show="showTooltip">Расскажите, какой ремонт вы планируете</span>
+          <span class="tooltiptext" v-show="showTooltip">Расскажите, какой ремонт вы планируете</span>
+            </div>
             </p>
 
             <p>
@@ -715,6 +716,7 @@ input[type="radio"]{
   width: 430px;
   height: 180px;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  overflow: hidden;
 }
 
 .radio-row {
@@ -723,7 +725,7 @@ input[type="radio"]{
     align-items: center; /* Выравниваем элементы по вертикали по центру */
   border: 1px solid;
   border-color: transparent transparent #ccc transparent;
-  overflow: hidden;
+
 }
 .checkbox-wrapper {
   flex: 0 0 50%;
@@ -834,6 +836,7 @@ input[type="text"]{
   text-align: left;
   padding-left: 20px;
   transition: 0.2s ease-in-out;
+  margin-bottom: -20px;
 }
 
 #email{
@@ -853,19 +856,19 @@ input[type="text"]{
 }
 
 input[name="firstName"]{
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 input[name="surname"]{
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 input[name="patronymic"]{
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 select{
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 
@@ -887,6 +890,7 @@ input[type="password"]{
   letter-spacing: 0em;
   text-align: left;
   padding-left: 40px;
+  margin-bottom: -20px;
 }
 
 input[type="password"]:focus{
@@ -909,6 +913,7 @@ input[type="password"]:focus{
   line-height: 19px;
   letter-spacing: 0em;
   text-align: left;
+  padding-top: -10px;
 }
 
 input[type="checkbox"]{
@@ -964,20 +969,62 @@ input[type="radio"]:checked {
 
 i {
   position: relative;
-  top: -35px;
+  top: -19px;
+  left: 15px;
+}
+
+.fa-lock{
+  position: relative;
+  top: -18px;
   left: 15px;
 }
 
 .fa-eye{
   position: relative;
-  top: -35px;
+  top: -18px;
   left: 385px;
 }
 
 .fa-info-circle {
   position: relative;
-  top: -35px;
+  top: -18px;
   left: 395px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 212px;
+  height: 62px;
+  background-color: #8DD3BB;
+  color: #0e0e0e;
+  text-align: left;
+  padding: 10px 20px;
+  border-radius: 6px;
+
+  position: absolute;
+  margin-left: 200px;
+  margin-top: 15px;
+
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 87%;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #8DD3BB transparent;
 }
 
 </style>

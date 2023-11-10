@@ -1,6 +1,6 @@
 <template>
   <div>
-                  <h3>111111Регистрация успешная. Ваши данные:</h3>
+                  <h3>Регистрация успешная. Ваши данные:</h3>
                   <span>Фамилия: {{ register.surname }}</span><br>
                   <span>Имя: {{ register.firstName }}</span><br>
                   <span>Почта: {{ register.email }}</span><br>
